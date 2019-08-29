@@ -17,7 +17,10 @@ subject to the following restrictions:
 #include "btBulletDynamicsCommon.h"
 #include <stdio.h>
 #define WASM_EXP __attribute__((visibility("default")))
-#ifdef WEBASM
+#define __BTWASM_SYSCALL_NAME(name) \
+	__attribute__((__import_module__("BTJSRT"), __import_name__(#name)))
+
+//#ifdef WEBASM
 void test1();
 extern "C"
 {
@@ -25,9 +28,11 @@ extern "C"
 	void WASM_EXP test() {
 		test1();
 	}
+	void jslog(const char* str,int len, float f1, float f2, float f3) __BTWASM_SYSCALL_NAME(log);
 }
+
 /// This is a Hello World program for running a basic Bullet physics simulation
-#endif
+//#endif
 
 void test1()
 {
@@ -140,6 +145,8 @@ void test1()
 			{
 				trans = obj->getWorldTransform();
 			}
+			const char* outstr = "world pos object ";
+			jslog(outstr, strlen(outstr), float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 		}
 	}
