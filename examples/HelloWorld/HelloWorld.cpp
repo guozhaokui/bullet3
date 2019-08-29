@@ -16,10 +16,20 @@ subject to the following restrictions:
 ///-----includes_start-----
 #include "btBulletDynamicsCommon.h"
 #include <stdio.h>
-
+#define WASM_EXP __attribute__((visibility("default")))
+#ifdef WEBASM
+void test1();
+extern "C"
+{
+	int __cxa_begin_catch(int a) { return 0; }
+	void WASM_EXP test() {
+		test1();
+	}
+}
 /// This is a Hello World program for running a basic Bullet physics simulation
+#endif
 
-int main(int argc, char** argv)
+void test1()
 {
 	///-----includes_end-----
 
@@ -130,7 +140,7 @@ int main(int argc, char** argv)
 			{
 				trans = obj->getWorldTransform();
 			}
-			printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 		}
 	}
 
@@ -177,4 +187,9 @@ int main(int argc, char** argv)
 
 	//next line is optional: it will be cleared by the destructor when the array goes out of scope
 	collisionShapes.clear();
+}
+
+int main(int argc, char** argv){
+	test1();
+	return 0;
 }
