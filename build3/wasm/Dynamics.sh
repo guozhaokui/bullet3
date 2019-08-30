@@ -5,9 +5,10 @@ pushd build/dynamics
 
 clang++ \
     -c \
-    --target=wasm32 -nostdlib -O3 -DWEBASM -DSINGLE_THREAD -DBT_USE_DOUBLE_PRECISION -D__wasi__ -DNDEBUG -DNO_OPENGL3 \
+    --target=wasm32 -nostdlib -O3 -DWEBASM -DBT_USE_DOUBLE_PRECISION -D__wasi__ -DNDEBUG -DNO_OPENGL3 \
     -fvisibility=hidden \
     -mthread-model single \
+    -fno-threadsafe-statics  \
     -std=c++11 \
     -fno-exceptions \
     -I../../../../src \

@@ -29,6 +29,43 @@ extern "C"
 		test1();
 	}
 	void jslog(const char* str,int len, float f1, float f2, float f3) __BTWASM_SYSCALL_NAME(log);
+
+	// 导出函数
+	int createWorld() {
+		return 0;
+	}
+
+	void world_setG(float x, float y, float z) {
+	}
+
+	void world_addBody(int body) {
+	}
+
+	void world_step(float step, float dt, int maxinterp) {}
+
+	// m 是因为要计算转动惯量
+	int createBox(float x, float y, float z, float m) {
+		return 0;
+	}
+
+	int createSphere(float r, float m) {
+		return 0;
+	}
+
+	int createCapsule(float r, float h, float m) {
+		return 0;
+	}
+
+
+	int createRigidBody() {
+		return 0;
+	}
+
+	// 位置同步
+	void body_setOri() {}
+	void body_setRot() {}
+	void body_getOri() {}
+	void body_getRot() {}
 }
 
 /// This is a Hello World program for running a basic Bullet physics simulation
