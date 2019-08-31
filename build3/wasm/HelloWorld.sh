@@ -24,6 +24,7 @@ wasm-ld        \
     --allow-undefined-file=../../jslib.imports \
     --import-memory \
     --export=test \
+    --export-dynamic \
     -S \
     ../collision/collision.a \
     ../dynamics/dynamics.a \

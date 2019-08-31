@@ -16,62 +16,10 @@ subject to the following restrictions:
 ///-----includes_start-----
 #include "btBulletDynamicsCommon.h"
 #include <stdio.h>
-#define WASM_EXP __attribute__((visibility("default")))
-#define __BTWASM_SYSCALL_NAME(name) \
-	__attribute__((__import_module__("BTJSRT"), __import_name__(#name)))
-
-//#ifdef WEBASM
-void test1();
-extern "C"
-{
-	int __cxa_begin_catch(int a) { return 0; }
-	void WASM_EXP test() {
-		test1();
-	}
-	void jslog(const char* str,int len, float f1, float f2, float f3) __BTWASM_SYSCALL_NAME(log);
-
-	// 导出函数
-	int createWorld() {
-		return 0;
-	}
-
-	void world_setG(float x, float y, float z) {
-	}
-
-	void world_addBody(int body) {
-	}
-
-	void world_step(float step, float dt, int maxinterp) {}
-
-	// m 是因为要计算转动惯量
-	int createBox(float x, float y, float z, float m) {
-		return 0;
-	}
-
-	int createSphere(float r, float m) {
-		return 0;
-	}
-
-	int createCapsule(float r, float h, float m) {
-		return 0;
-	}
-
-
-	int createRigidBody() {
-		return 0;
-	}
-
-	// 位置同步
-	void body_setOri() {}
-	void body_setRot() {}
-	void body_getOri() {}
-	void body_getRot() {}
-}
 
 /// This is a Hello World program for running a basic Bullet physics simulation
-//#endif
 
-void test1()
+int main(int argc, char** argv)
 {
 	///-----includes_end-----
 
@@ -183,7 +131,7 @@ void test1()
 				trans = obj->getWorldTransform();
 			}
 			const char* outstr = "world pos object ";
-			jslog(outstr, strlen(outstr), float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+			//jslog(outstr, strlen(outstr), float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 			//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 		}
 	}
@@ -233,7 +181,3 @@ void test1()
 	collisionShapes.clear();
 }
 
-int main(int argc, char** argv){
-	test1();
-	return 0;
-}
